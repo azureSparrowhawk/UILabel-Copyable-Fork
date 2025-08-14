@@ -32,6 +32,7 @@ public extension UILabel {
         static var isCopyingEnabled: UInt8 = 0
         static var shouldUseLongPressGestureRecognizer: UInt8 = 1
         static var longPressGestureRecognizer: UInt8 = 2
+        static var toCopy: UInt8 = 3
     }
 
     /// Set this property to `true` in order to enable the copy feature. Defaults to `false`.
@@ -44,6 +45,18 @@ public extension UILabel {
         get {
             let value = objc_getAssociatedObject(self, &AssociatedKeys.isCopyingEnabled)
             return (value as? Bool) ?? false
+        }
+    }
+    
+    
+    
+    @IBInspectable var toCopy: String {
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.toCopy, newValue, .OBJC_ASSOCIATION_ASSIGN)
+        }
+        get {
+            let value = objc_getAssociatedObject(self, &AssociatedKeys.toCopy)
+            return (value as? String) ?? text!
         }
     }
 
@@ -87,7 +100,7 @@ public extension UILabel {
         if isCopyingEnabled {
             // Copy the label text
             let pasteboard = UIPasteboard.general
-            pasteboard.string = text
+            pasteboard.string = toCopy
         }
     }
 
