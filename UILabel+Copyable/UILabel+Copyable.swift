@@ -52,11 +52,11 @@ public extension UILabel {
     
     @IBInspectable var toCopy: String {
         set {
-            objc_setAssociatedObject(self, &AssociatedKeys.toCopy, newValue, .OBJC_ASSOCIATION_ASSIGN)
+            objc_setAssociatedObject(self, &AssociatedKeys.toCopy, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
         get {
-            let value = objc_getAssociatedObject(self, &AssociatedKeys.toCopy)
-            return (value as? String) ?? text!
+            let value = objc_getAssociatedObject(self, &AssociatedKeys.toCopy) as? String
+            return value ?? text ?? ""
         }
     }
 
