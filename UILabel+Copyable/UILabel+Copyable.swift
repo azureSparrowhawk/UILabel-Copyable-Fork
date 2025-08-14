@@ -101,6 +101,7 @@ public extension UILabel {
             // Copy the label text
             let pasteboard = UIPasteboard.general
             pasteboard.string = toCopy
+            print(toCopy)
         }
     }
 
